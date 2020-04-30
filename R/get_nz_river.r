@@ -43,16 +43,14 @@ get_nz_river_name <- function(x = NULL,begin = NULL, ignore.case = TRUE){
 #' segmentes named as \code{x}.
 #' @param plot Logical If TRUE then a plot of the \code{SpatialLinesDataFrame}
 #' in relation to NZ is plotted
-#' @param order Optional; a single numeric value or a vector \code{%in%} 1:8 specifying
+#' @param order Optional; a single numeric value or a vector \code{%in%} 4:8 specifying
 #' order of river segments
-#' @param sf Logical. If \code{TRUE} then a \code{sf} object of NZ rivers is returned
 #' @param ... other arguments to pass into \code{show_nz_river()}
 #' @return A \code{SpatialLinesDataFrame} or a \code{sf} object 
-get_nz_river <- function(x = "NZ", network = TRUE,plot = FALSE,order = 4:8,sf = TRUE,...){
+get_nz_river <- function(x = "NZ", network = TRUE,plot = FALSE,order = 4:8,...){
     if(!is.character(x)){stop("Please provide a character string")}
     if(length(x) > 1){stop("Please only provide a single river name or region")}
-    ## browser()
-    if(sf){riv <- nz_sf}else{riv <- nz_rivers}
+    riv <- nz_rivers
     if(x == "NZ"){
         res <- riv
     }else{
@@ -65,12 +63,12 @@ get_nz_river <- function(x = "NZ", network = TRUE,plot = FALSE,order = 4:8,sf = 
             if(!network){
                 res <- riv[idx,]
             }else{
-                net <- unique(riv[idx,"NETWORK"])
+                net <- unique(riv@data[idx,"NETWORK"])
                 res <- riv[riv$NETWORK%in%net,]
             }
         }
     }
-    if(!is.null(order)) res <- res[res$ORDER %in% order,]
+    if(!is.null(order)) res <- res[res@data$ORDER %in% order,]
     if(plot) show_nz_river(res,...)
     return(res)
 }

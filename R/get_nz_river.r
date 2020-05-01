@@ -71,3 +71,30 @@ get_nz_river <- function(x = "NZ", network = TRUE, plot = FALSE, order = 4:8, ..
     if(plot) show_nz_river(res, ...)
     return(res)
 }
+#' Function to download example data
+#' @param example character string of data queried \code{%in%}
+#' \code{"NZ"}: \code{SpatialPolygonsDataFrame} of NZ main islands,
+#' \code{"Waikato"}: \code{SpatialLinesDataFrame} of all connected
+#' rivers & strams to thw Waikato river, or \code{"nz_rivers"}:
+#' \code{SpatialLinesDataFrame} of all NZ rivers of order 4 above
+get_hexr_data <- function(example = "Waikato") {
+    if(!example %in% c("NZ", "Waikato", "nz_rivers"))
+        stop("argument should be one of NZ, Waikato, or nz_rivers")
+    if(example == "NZ") {
+        url <- "https://github.com/cmjt/hexr/blob/master/gh-data/nz.rda?raw=true"
+    }else{
+        if(example == "Waikato") {
+            url <- "https://github.com/cmjt/hexr/blob/master/gh-data/waikato.rda?raw=true"
+        }else{
+            if(example == "nz_rivers") {
+                url <- "https://github.com/cmjt/hexr/blob/master/gh-data/rivers_nz.rda?raw=true"
+            }
+        }
+    }
+    tmp <- tempfile(fileext = ".rda")
+    download.file(url, destfile = tmp)
+    env <- new.env()
+    nm <- load(tmp, env)[1]
+    unlink(tmp)
+    env[[nm]]
+}

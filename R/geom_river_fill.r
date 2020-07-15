@@ -65,7 +65,7 @@ rivers_summary_fill <- function(x, y, bins, river_id, var, seg, gp = grid::gpar(
     mask <- ifelse(seg == 1, 2, 1)
     ngp$size[, segs %in% mask] <- 0
     ngp$lwd <- aggregate(gp$lwd, list(ids), mean)[, 2]
-    if(!hexr::is.unique(ngp$fill)) {
+    if(!hexr:::is_unique(ngp$fill)) {
         ngp$fill <- aggregate(gp$fill, list(ids), av_rgb)[, 2]
     }
     tri <- get_tri(hex_x, hex_y, 0, 0)

@@ -19,3 +19,12 @@ get_tri <- function(x, y, cenx, ceny) {
     ty <- rbind(ty, ceny)
     return(data.frame(x = c(tx), y = c(ty)))
 }
+#' function to prep sf data for geom_hex
+#' @param x object of class \code{sf}
+#' @export
+prep_hex <- function(x){
+    cent <- sf::st_centroid(x)
+    coords <- sf::st_coordinates(cent)
+    x$X <- coords[,1]; x$Y <- coords[,2]
+    return(x)
+}

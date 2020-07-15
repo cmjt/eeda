@@ -43,7 +43,7 @@ get_mfe_data <- function(id, key, plot = FALSE) {
     urlp2 <- paste("/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=",
                    id, "&outputFormat=KML", sep = "")
     url <- paste(urlp1, urlp2, sep = "")
-    tmp <- tempfile(pattern = id, fileext = ".kml")
+    tmp <- tempfile(pattern = id, tmpdir = "./", fileext = ".kml")
     download.file(url, destfile = tmp)
     lay <- rgdal::ogrListLayers(tmp)
     print(lay)

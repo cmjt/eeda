@@ -7,6 +7,7 @@
 #' is ignored.
 #' @param ignore.case Logical. By default \code{TRUE}, speecifies \code{grep} to ignore letter case.
 #' @return a vector of matching river names
+#' @export
 get_nz_river_name <- function(x = NULL, begin = NULL, ignore.case = TRUE) {
     if(!is.null(x)){
         if(!is.character(x)) stop("Please provide a character string")
@@ -45,7 +46,8 @@ get_nz_river_name <- function(x = NULL, begin = NULL, ignore.case = TRUE) {
 #' @param order Optional; a single numeric value or a vector \code{%in%} 4:8 specifying
 #' order of river segments
 #' @param ... other arguments to pass into \code{show_nz_river()}
-#' @return A \code{SpatialLinesDataFrame} or a \code{sf} object 
+#' @return A \code{SpatialLinesDataFrame} or a \code{sf} object
+#' @export
 get_nz_river <- function(x = "NZ", network = TRUE, plot = FALSE, order = 4:8, ...) {
     if(!is.character(x)) stop("Please provide a character string")
     if(length(x) > 1) stop("Please only provide a single river name or region")
@@ -77,6 +79,7 @@ get_nz_river <- function(x = "NZ", network = TRUE, plot = FALSE, order = 4:8, ..
 #' \code{"Waikato"}: \code{SpatialLinesDataFrame} of all connected
 #' rivers & strams to thw Waikato river, or \code{"nz_rivers"}:
 #' \code{SpatialLinesDataFrame} of all NZ rivers of order 4 above
+#' @export
 get_hexr_data <- function(example = "Waikato") {
     if(!example %in% c("NZ", "Waikato", "nz_rivers"))
         stop("argument should be one of NZ, Waikato, or nz_rivers")

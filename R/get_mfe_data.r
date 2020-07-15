@@ -1,6 +1,7 @@
 #' Function to see available mfe spatial layer datasets available to
 #' download
 #' @param key API key for \url{http://data.mfe.govt.nz}
+#' @export
 mfe_data <- function(key) {
     url <- paste("https://data.mfe.govt.nz/services;key=", key,
                  "/wfs?service=WFS&request=GetCapabilities", sep = "")
@@ -17,6 +18,7 @@ mfe_data <- function(key) {
 #' @inheritParams mfe_data
 #' @param x a character string to search mfe datasets
 #' @return a vector of mfe dataset ids
+#' @export
 get_layer_id <- function(x, key) {
     abs <- mfe_data(key = key)
     idx <- unique(grep(x, abs[, 2]))
@@ -31,6 +33,7 @@ get_layer_id <- function(x, key) {
 #' @param id layer ID of mfe dataset
 #' @inheritParams mfe_data
 #' @param plot Logical. If TRUE will plot data
+#' @export
 get_mfe_data <- function(id, key, plot = FALSE) {
     if(length(id) > 1) {
         print("id should be of length 1, using first element only")

@@ -5,7 +5,7 @@
 mfe_data <- function(key) {
     url <- paste("https://data.mfe.govt.nz/services;key=", key,
                  "/wfs?service=WFS&request=GetCapabilities", sep = "")
-    pg <- rvest::read_html(url)
+    pg <- xml2::read_html(url)
     titles <- pg %>% rvest::html_nodes("title") %>% rvest::html_text()
     abstracts <- pg %>% rvest::html_nodes("abstract") %>% rvest::html_text()
     layerid <- pg %>% rvest::html_nodes("name") %>% rvest::html_text()

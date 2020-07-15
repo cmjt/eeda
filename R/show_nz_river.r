@@ -4,8 +4,9 @@
 #' @export
 show_nz_river <- function(x, ...) {
     if(class(x)[1] == "SpatialLinesDataFrame" |
-       class(x)[1] == "SpatialPolygonsDataFrame") {
-        plot(x, add = TRUE,...)
+       class(x)[1] == "SpatialPolygonsDataFrame" |
+       class(x)[1] == "SpatialPointsDataFrame") {
+        plot(x,...)
     }else
         if(class(x)[1] == "sf") {
             p <- ggplot(x) + geom_sf() +

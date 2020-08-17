@@ -1,0 +1,22 @@
+---
+title: "Vizualising NZ rivers with `hexrec`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vizualising NZ rivers with `hexrec`}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE, warning = FALSE, message = FALSE, cache = TRUE)
+knitr::read_chunk("viz.R")
+```
+
+```{r,libs,echo = TRUE}
+```
+
+Download and return a `SpatialLinesDataFrame` of NZ rivers. If `plot = TRUE` then a plot is also printed.
+
+```{r,demo,echo = TRUE,fig.width = 12, fig.height = 8}
+```

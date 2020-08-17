@@ -17,6 +17,9 @@ segmentes named as \code{x}.}
 \item{plot}{Logical If TRUE then a plot of the \code{SpatialLinesDataFrame}
 in relation to NZ is plotted}
 
+\item{order}{Optional; a single numeric value or a vector in 4:8 specifying
+order of river segments}
+
 \item{...}{other arguments to pass into \code{show_nz_river()}}
 }
 \value{

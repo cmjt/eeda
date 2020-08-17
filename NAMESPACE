@@ -2,11 +2,11 @@
 
 export(geom_river_fill)
 export(geom_rivers)
-export(get_hexr_data)
 export(get_layer_id)
 export(get_mfe_data)
 export(get_nz_river)
 export(get_nz_river_name)
+export(hexrec)
 export(mfe_data)
 export(prep_hex)
 export(show_nz_river)

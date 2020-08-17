@@ -1,4 +1,4 @@
-Package: hexr
+Package: hexrec
 Title: Visualising River Networks as Hexbins
 Version: 0.0.0.9000
 Authors@R: 
@@ -15,3 +15,5 @@ LazyData: true
 Imports:
     ggplot2 (>= 3.3)
 RoxygenNote: 7.1.1
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr

@@ -2,3 +2,5 @@
 ^waikato\.rda$
 ^rivers_nz\.rda$
 ^gh-data$
+^doc$
+^Meta$

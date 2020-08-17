@@ -28,3 +28,27 @@ prep_hex <- function(x){
     x$X <- coords[,1]; x$Y <- coords[,2]
     return(x)
 }
+#' function to download a \code{SpatialLinesDataFrame} of NZ rivers
+#' @param rivers logical, if \code{TRUE} (default) then a \code{SpatialLinesDataFrame}
+#' of NZ rivers is returned
+#' @param plot logical, if \code{TRUE} (default) then a plot is drawn
+#' @export
+hexrec <- function(rivers = TRUE, plot = TRUE){
+    if(rivers == FALSE & plot == FALSE) stop("What do you want me to do?")
+    url <- "https://github.com/cmjt/hexrec/raw/master/gh-data/rivers_nz.rda?raw=True"
+    repmis::source_data(url)
+    if(plot){
+        cols <- c(RColorBrewer::brewer.pal(4, "Dark2"),
+                  rep(RColorBrewer::brewer.pal(8, "Dark2"),75,))
+        sf <- sf::st_as_sf(rivers_nz)
+        coo <- rep(cols,times = table(sf$NETWORK))
+        p <- ggplot2::ggplot(sf) + ggplot2::geom_sf(color = coo) +
+            ggplot2::theme_void() + ggplot2::theme(plot.background = ggplot2::element_rect(fill = "black"),
+                                                   plot.margin = grid::unit(c(0,0,0,0), "mm"),
+                                                   axis.text = ggplot2::element_blank(), axis.ticks.length = grid::unit(0, "mm"))
+        print(p)
+    }
+    if(rivers){
+        return(rivers_nz)
+    }
+}

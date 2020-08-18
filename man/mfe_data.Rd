@@ -2,15 +2,12 @@
 % Please edit documentation in R/get_mfe_data.r
 \name{mfe_data}
 \alias{mfe_data}
-\title{Function to see available mfe spatial layer datasets available to
+\title{Function to exploe all available mfe spatial layer datasets available to
 download}
 \usage{
-mfe_data(key)
-}
-\arguments{
-\item{key}{API key for \url{http://data.mfe.govt.nz}}
+mfe_data()
 }
 \description{
-Function to see available mfe spatial layer datasets available to
+Function to exploe all available mfe spatial layer datasets available to
 download
 }

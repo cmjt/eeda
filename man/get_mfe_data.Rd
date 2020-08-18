@@ -5,14 +5,12 @@
 \title{Function to download a specified spatial layer from
 \url{http://data.mfe.govt.nz}}
 \usage{
-get_mfe_data(id, key, plot = FALSE)
+get_mfe_data(id, key)
 }
 \arguments{
 \item{id}{layer ID of mfe dataset}
 
-\item{key}{API key for \url{http://data.mfe.govt.nz}}
-
-\item{plot}{Logical. If TRUE will plot data}
+\item{key}{API key for \url{https://data.mfe.govt.nz/}}
 }
 \description{
 Function to download a specified spatial layer from

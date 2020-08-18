@@ -2,7 +2,6 @@
 
 export(geom_river_fill)
 export(geom_rivers)
-export(get_layer_id)
 export(get_mfe_data)
 export(get_nz_river)
 export(get_nz_river_name)

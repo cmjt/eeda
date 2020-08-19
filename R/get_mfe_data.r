@@ -1,5 +1,8 @@
-#' Function to exploe all available mfe spatial layer datasets available to
+#' Function to explore all available mfe spatial layer datasets available to
 #' download
+#' @examples \dontrun{
+#' mfe_data()
+#' }
 #' @export
 mfe_data <- function() {
     url <- "https://data.mfe.govt.nz/layers/?v=rows"
@@ -22,32 +25,55 @@ mfe_data <- function() {
                                         rvest::html_attr("data-item-id"))
     layers <- unlist(layers)
     lay.nums <- sapply(sapply(layers, strsplit, "layer."), function(x) x[2])
-    rownames(lay.nums) <- NULL
-    return(data.frame(Data = titles,"Layer number" = lay.nums))
+    res <- data.frame(Data = titles,"Layer number" = lay.nums)
+    rownames(res) <- NULL
+    return(res)
 }
 
 #' Function to download a specified spatial layer from
 #' \url{http://data.mfe.govt.nz}
-#' @param id layer ID of mfe dataset
-#' @param key API key for \url{https://data.mfe.govt.nz/}
+#' @param id required, layer ID of the mfe dataset. Must be supplied
+#' as a character vector, either as a string of number (e.g., "53523")
+#' or as the MfE layer id (e.g., "layer-53523")
+#' @param key optional, manually set API key for \url{https://data.mfe.govt.nz/}
+#' @param sf logical, return data as \code{sf}. FALSE by default
+#' @param plot logical if TRUE thn object is plotted
+#' @return a \code{Spatial} or \code{sf} object of the requested data layer
+#' @examples \dontrun{
+#' get_mfe_data(id = "layer-53523")
+#' }
 #' @export
-get_mfe_data <- function(id, key) {
+#' @importFrom magrittr %>%
+#' @importFrom xml2 read_html
+#' @importFrom rvest html_nodes html_text
+#' @importFrom httr GET write_disk
+#' @importFrom rgdal ogrListLayers readOGR
+#' @importFrom sf st_read
+get_mfe_data <- function(id, key = NULL, sf = FALSE, plot = FALSE) {
+    if(is.na(charmatch("layer-",id))) id <- paste("layer-",id,sep = "")
     if(length(id) > 1) {
         print("id should be of length 1, using first element only")
         id <- id[1]
     }
-    id <- paste("layer-",id, sep = "")
+    if(is.null(key)) {
+        if(!"MfE_KEY" %in% names(eeda_keys()))
+            stop("No MfE_KEY registered, use eeda_auth(...) to set yours")
+        key <- eeda_keys()$MfE_KEY
+    }
+    if(!is.null(key)) print("MfE_KEY found")
     base_url <- "https://data.mfe.govt.nz"
     endpoint <- paste("/services;key=",key, "/wfs",sep = "")
     q <- list(request = "GetFeature", service = "WFS", typeNames = id,outputFormat = "KML")
     file <- tempfile(fileext = ".kml")
-    httr::GET(url = base_url, path = endpoint, query = q, httr::write_disk(file))
-    lay <- rgdal::ogrListLayers(file)
-    res <- rgdal::readOGR(file, layer = lay)
+    GET(url = base_url, path = endpoint, query = q, write_disk(file))
+    if(! sf){
+        lay <- ogrListLayers(file)
+        res <- readOGR(file, layer = lay)
+    }else{
+        res <- st_read(file)
+    }
     unlink(file)
+    if(plot) show_basic_eeda(res)
     return(res)
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom xml2 read_html
-#' @importFrom rvest html_nodes html_text

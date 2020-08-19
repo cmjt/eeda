@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.r
 \name{prep_hex}
 \alias{prep_hex}
-\title{function to prep sf data for geom_hex}
+\title{Function to prep sf data for geom_hex}
 \usage{
 prep_hex(x)
 }
@@ -10,5 +10,5 @@ prep_hex(x)
 \item{x}{object of class \code{sf}}
 }
 \description{
-function to prep sf data for geom_hex
+Function to prep sf data for geom_hex
 }

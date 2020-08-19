@@ -1,5 +1,5 @@
-Package: hexrec
-Title: Visualising River Networks as Hexbins
+Package: eeda
+Title: Environmental and Ecological Data of Aotearoa
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Charlotte M.",
@@ -7,8 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "cmjonestodd@gmail.com",
            comment = c(ORCID = "0000-0003-1201-2781"))
-Description: An R package that visualises river networks as hexbin networks. hexr enables users to add a ggplot2 layer summarising the supplied river network as a hexbin network. In addition, multiple measures can be displayed in a single "segment". 
-Depends: R (>= 3.6.3)
+Description: An R package to download and vizualise open-source New Zealand (Aotearoa) environmental and ecological spatial data. Data are acessed and downloaded using API calls. Main sources of data are the \href{Ministry for the Environment}{https://data.mfe.govt.nz/}(MfE) and the \href{National Institute of Water and Atmospheric Research}{https://hydrowebportal.niwa.co.nz/} (NIWA).
+Depends: R (>= 4.0.2)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

@@ -7,7 +7,7 @@
 get_nz_river(x = "NZ", network = TRUE, plot = FALSE, order = 4:8, ...)
 }
 \arguments{
-\item{x}{A character string of length one spefifying either 1. the complete river NZ river name,
+\item{x}{A character string of length one specifying either 1. the complete river NZ river name,
 2. the NZ province (e.g., \code{x = "Canterbury"}) of rivers to return, or
 3. "NZ" the default, the whole of NZ.}
 
@@ -27,4 +27,10 @@ A \code{SpatialLinesDataFrame} or a \code{sf} object
 }
 \description{
 Function to return \code{SpatialLinesDataFrame} of user specified NZ river(s)
+}
+\examples{
+\dontrun{
+waikato <- get_nz_river(x = "Waikato River")
+auckland <- get_nz_river(x = "Auckland")
+}
 }

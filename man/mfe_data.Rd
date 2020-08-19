@@ -2,12 +2,17 @@
 % Please edit documentation in R/get_mfe_data.r
 \name{mfe_data}
 \alias{mfe_data}
-\title{Function to exploe all available mfe spatial layer datasets available to
+\title{Function to explore all available mfe spatial layer datasets available to
 download}
 \usage{
 mfe_data()
 }
 \description{
-Function to exploe all available mfe spatial layer datasets available to
+Function to explore all available mfe spatial layer datasets available to
 download
+}
+\examples{
+\dontrun{
+mfe_data()
+}
 }

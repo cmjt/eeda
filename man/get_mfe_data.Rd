@@ -5,14 +5,28 @@
 \title{Function to download a specified spatial layer from
 \url{http://data.mfe.govt.nz}}
 \usage{
-get_mfe_data(id, key)
+get_mfe_data(id, key = NULL, sf = FALSE, plot = FALSE)
 }
 \arguments{
-\item{id}{layer ID of mfe dataset}
+\item{id}{required, layer ID of the mfe dataset. Must be supplied
+as a character vector, either as a string of number (e.g., "53523")
+or as the MfE layer id (e.g., "layer-53523")}
 
-\item{key}{API key for \url{https://data.mfe.govt.nz/}}
+\item{key}{optional, manually set API key for \url{https://data.mfe.govt.nz/}}
+
+\item{sf}{logical, return data as \code{sf}. FALSE by default}
+
+\item{plot}{logical if TRUE thn object is plotted}
+}
+\value{
+a \code{Spatial} or \code{sf} object of the requested data layer
 }
 \description{
 Function to download a specified spatial layer from
 \url{http://data.mfe.govt.nz}
+}
+\examples{
+\dontrun{
+get_mfe_data(id = "layer-53523")
+}
 }

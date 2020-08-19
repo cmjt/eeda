@@ -18,10 +18,15 @@ is ignored.}
 \item{ignore.case}{Logical. By default \code{TRUE}, speecifies \code{grep} to ignore letter case.}
 }
 \value{
-a vector of matching river names
+A character vector of matching river names
 }
 \description{
 Function to find a NZ river by name. Rivers, by default, are matched to river segment names
 specified by \url{https://data.linz.govt.nz/layer/103631-nz-river-name-polygons-pilot/}
 and on the same network.
+}
+\examples{
+\dontrun{
+get_nz_river_name(x = "waika")
+}
 }

@@ -1,22 +1,38 @@
-## ---- library
+## ---- libs
 
-library(hexrec)
+library(eeda)
 
+## ---- quiet
+key <- read.delim("keys.txt",header = FALSE)$V1
 
+## ---- key
+
+eeda_auth(key = key)
     
-## ---- what dara are available
+## ---- data
 
-require(magrittr); library(xml2); library(rvest)
 available <- mfe_data()
 str(available)
-available[,1]
+head(available,10)
+## search for a keyword
+idx <- grep("invert",available[,1])
+available[idx,]
 
-## ---- API key
+## ---- get
 
-key <- 	"99acb780f2604ed19efed0e4dd0beb25"	
+## as spdf
+invert <- get_mfe_data(id = "52713")
+class(invert)
+## as sf
+invert_sf <- get_mfe_data(id = "52713", sf = TRUE)
+class(invert_sf)
 
+## ---- base
 
-id <-  "53523"
+## ---- sfplot
+library(ggplot2)
+ggplot(invert_sf) + geom_sf(aes(color = as.numeric(SiteMedian)), size = 2) +
+    scale_color_gradient("MCI median") +
+    theme_void()
 
-res <- get_mfe_data(key = key, id = id)
-
+## ---- eeda

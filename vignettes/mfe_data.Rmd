@@ -1,0 +1,42 @@
+---
+title: "Downloading and Vizualising MfE data with `eeda`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Downloading and Vizualising MfE data with `eeda`}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE, warning = FALSE, message = FALSE, cache = TRUE)
+knitr::read_chunk("mfe.R")
+```
+## Setting up
+```{r,libs,echo = TRUE}
+```
+
+```{r,quiet,echo = FALSE}
+```
+
+Register your API key using the following. For mor info see []().
+
+```{r,key,echo = TRUE,eval = TRUE}
+```
+
+To see all possible available data layers run
+
+```{r,data,echo = TRUE,eval = TRUE}
+```
+
+## Importing data
+
+To download a particular layer use the layer id number
+
+```{r,get, echo = TRUE}
+```
+
+## Plotting
+
+```{r,sfplot, echo = TRUE, fig.height=8,fig.width=5}
+```

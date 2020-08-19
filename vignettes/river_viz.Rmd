@@ -1,8 +1,8 @@
 ---
-title: "Vizualising NZ rivers with `hexrec`"
+title: "Vizualising NZ rivers with `eeda`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vizualising NZ rivers with `hexrec`}
+  %\VignetteIndexEntry{Vizualising NZ rivers with `eeda`}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -16,7 +16,25 @@ knitr::read_chunk("viz.R")
 ```{r,libs,echo = TRUE}
 ```
 
+```{r,quiet,echo = FALSE}
+```
+
 Download and return a `SpatialLinesDataFrame` of NZ rivers. If `plot = TRUE` then a plot is also printed.
 
-```{r,demo,echo = TRUE,fig.width = 12, fig.height = 8}
+```{r,demo,echo = TRUE,fig.width = 5, fig.height = 8}
+```
+
+Search for particular river name and return a `SpatialLinesDataFrame`. If `plot = TRUE` then a plot is also printed.
+
+```{r,waikato, echo = TRUE,fig.width = 5, fig.height = 8}
+```
+
+Alternitevely return all rivers in a province. Note that if the argument `network = TRUE` then all connected river segments are returned (including those outwith the specified province). 
+
+```{r,canter,echo = TRUE}
+```
+
+Note that `get_nz_river` returns a `SpatialLinesDataFrame`; if you wish to deal with a simple features object then you can use `st_as_sf()` from the `sf` package to transform.
+
+```{r,sf,echo = TRUE,fig.width = 5, fig.height = 5}
 ```

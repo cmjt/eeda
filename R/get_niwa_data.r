@@ -1,17 +1,32 @@
 #' Function to explore pubically available datasets
 #' at \url{https://data-niwa.opendata.arcgis.com/}
+#' @param id required, layer ID of the niwa dataset. Must be supplied
+#' as a string of numbers (e.g., "c894b53b102f4f9db55278f7572ca4f6_0")
+#' possible ids may be found using \code{avail_niwa()}
+#' @inheritParams get_mfe_data
 #' @importFrom magrittr %>%
 #' @importFrom xml2 read_html
 #' @importFrom rvest html_nodes html_text
+#' @importFrom rgdal ogrListLayers readOGR
+#' @importFrom sf st_read
+#' @export
 
-niwa_data <- function(){
-    url <- "https://data-niwa.opendata.arcgis.com/datasets/ross-sea-biodiversity-survey-2004-bioross"
-    pg <- xml2::read_html(url)
-    abs <- (pg  %>% rvest::html_nodes("head") %>% rvest::html_nodes("meta"))[4] %>% rvest::html_attr("content")
-    id <- (pg  %>% rvest::html_nodes("head") %>% rvest::html_nodes("meta"))[7] %>% rvest::html_attr("content")
-    id <- gsub(".*items/(.+)/info.*", "\\1", id)
-    id <- paste(id,"_0",sep = "")
-    kml <- paste("https://opendata.arcgis.com/datasets/", id, ".kml",sep = "")
-    download.file(kml,"~/Desktop/tst.kml")
-    tst <- sf::st_read("~/Desktop/tst.kml")
+get_niwa_data <- function(id, sf = FALSE, plot = FALSE){
+    base <- "https://data-niwa.opendata.arcgis.com/datasets/"
+    tag <- niwa_names[which(id %in% niwa_names[,3]),2]
+    url <- paste(base, tag,sep = "")
+    pg <- read_html(url)
+    abs <- (pg  %>% html_nodes("head") %>% html_nodes("meta"))[4] %>% html_attr("content")
+    print(abs)
+    file <- tempfile(fileext = ".kml")
+    download.file(paste(base, id, ".kml", sep = "" ),destfile = file)
+    if(! sf){
+        lay <- ogrListLayers(file)
+        res <- readOGR(file, layer = lay)
+    }else{
+        res <- st_read(file)
+    }
+    unlink(file)
+    if(plot) show_basic_eeda(res)
+    return(res)
 }

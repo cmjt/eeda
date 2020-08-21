@@ -33,7 +33,7 @@ mfe_data <- function() {
 #' Function to download a specified spatial layer from
 #' \url{http://data.mfe.govt.nz}
 #' @param id required, layer ID of the mfe dataset. Must be supplied
-#' as a character vector, either as a string of number (e.g., "53523")
+#' as a character vector, either as a string of numbers (e.g., "53523")
 #' or as the MfE layer id (e.g., "layer-53523")
 #' @param key optional, manually set API key for \url{https://data.mfe.govt.nz/}
 #' @param sf logical, return data as \code{sf}. FALSE by default

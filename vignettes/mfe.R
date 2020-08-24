@@ -11,21 +11,18 @@ eeda_auth(key = key)
     
 ## ---- data
 
-available <- mfe_data()
-str(available)
-head(available,10)
-## search for a keyword
-idx <- grep("invert",available[,1])
-available[idx,]
+data(mfe_names)
+head(mfe_names,10)
+
+## search
+idx <- grep("invert",mfe_names[,1])
+mfe_names[idx,]
 
 ## ---- get
-
 ## as spdf
 invert <- get_mfe_data(id = "52713")
-class(invert)
 ## as sf
 invert_sf <- get_mfe_data(id = "52713", sf = TRUE)
-class(invert_sf)
 
 ## ---- base
 
@@ -36,3 +33,4 @@ ggplot(invert_sf) + geom_sf(aes(color = as.numeric(SiteMedian)), size = 2) +
     theme_void()
 
 ## ---- eeda
+

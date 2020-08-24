@@ -66,10 +66,10 @@ rivers_summary <- function(x, y, bins, river_id, order,  gp = grid::gpar()) {
     ## graphical parameters need to match length of hex data
     ngp$size <- aggregate(gp$size, list(ids), mean)[, 2]
     ngp$lwd <- aggregate(gp$lwd, list(ids), mean)[, 2]
-    if(!hexrec:::is_unique(ngp$fill)) {
+    if(!eeda:::is_unique(ngp$fill)) {
         ngp$fill <- aggregate(gp$fill, list(ids), av_rgb)[, 2]
     }
-    if(!hexrec:::is_unique(ngp$col)) {
+    if(!eeda:::is_unique(ngp$col)) {
         ngp$col <- aggregate(gp$col, list(ids), av_rgb)[, 2]
     }
     if(!is.null(order)) {

@@ -11,13 +11,19 @@
 #' @importFrom sf st_read
 #' @export
 
-get_niwa_data <- function(id, sf = FALSE, plot = FALSE){
+get_niwa_data <- function(id, sf = FALSE, plot = FALSE, print = TRUE){
     base <- "https://data-niwa.opendata.arcgis.com/datasets/"
-    tag <- niwa_names[which(id %in% niwa_names[,3]),2]
+    tag <- niwa_names[which(niwa_names[,3] %in% id),2]
     url <- paste(base, tag,sep = "")
     pg <- read_html(url)
-    abs <- (pg  %>% html_nodes("head") %>% html_nodes("meta"))[4] %>% html_attr("content")
-    print(abs)
+    if(print){
+        abs <- (pg  %>% html_nodes("head") %>%
+                html_nodes("meta"))[4] %>%
+            html_attr("content")
+        cat(abs)
+    }else{
+        browseURL(url)
+    }
     file <- tempfile(fileext = ".kml")
     download.file(paste(base, id, ".kml", sep = "" ),destfile = file)
     if(! sf){

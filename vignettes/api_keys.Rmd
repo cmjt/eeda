@@ -24,9 +24,7 @@ knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/5/59/The
 
 ## ... and the how.
 
-### Registering for an API key 
-
-#### [MfE](https://data.mfe.govt.nz/)
+### Registering for an [MfE](https://data.mfe.govt.nz/) API key
 
 To [sign up](https://data.mfe.govt.nz/) for this service you will be asked to create a [Koordinates](https://koordinates.com/about/) account; this is the geospatial data management system the [MfE](https://data.mfe.govt.nz/) use. Your API key can then be accssesd via the [API's and Web Services](https://data.mfe.govt.nz/my/api/) dropdown.
 
@@ -34,7 +32,6 @@ To [sign up](https://data.mfe.govt.nz/) for this service you will be asked to cr
 knitr::include_graphics("mfekey.png")
 ```
 
-#### [NIWA](https://niwa.co.nz/)
 
 
 ### Setting your API key in `eeda`
@@ -44,15 +41,11 @@ library(eeda)
 ```
 
 
-Data is downloaded from two platforms and each require an API key to be set. Keys for both [MfE](https://data.mfe.govt.nz/) and [NIWA](https://niwa.co.nz/) can be set by the `eeda_auth()` function; your API key shoulc be supplied as a character string to the  `key` arqument, by default `platform = "mfe"`.
+Data is downloaded from two platforms and each require an API key to be set. Your key for thee [MfE](https://data.mfe.govt.nz/) data portal can be set using the `eeda_auth()` function; your API key shoul be supplied as a character string to the  `key` arqument.
 
 
 ```{r mfe key, eval = FALSE}
 eeda_auth(key = key, platform = "mfe")
-```
-
-```{r niwa key, eval = FALSE}
-eeda_auth(key = key, platform = "niwa")
 ```
 
 To check which keys you have registered in for use by `eeda` functions use

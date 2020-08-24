@@ -4,6 +4,9 @@
 #' mfe_data()
 #' }
 #' @export
+#' @importFrom rvest html_nodes html_table html_attr
+#' @importFrom magrittr %>%
+#' @importFrom xml2 read_html
 mfe_data <- function() {
     url <- "https://data.mfe.govt.nz/layers/?v=rows"
     pg <- read_html(url)
@@ -17,12 +20,12 @@ mfe_data <- function() {
     ## all page urls
     urls <- paste("https://data.mfe.govt.nz/layers/?page=",1:num.pages,"&v=rows", sep = "")
     ## read all pages
-    pages <- lapply(urls, xml2::read_html)
-    titles <- lapply(pages, function(x) (x %>% rvest::html_table())[[2]][,1])
+    pages <- lapply(urls, read_html)
+    titles <- lapply(pages, function(x) (x %>% html_table())[[2]][,1])
     titles <- unlist(titles)
     layers <- lapply(pages, function(x) x %>%
-                                        rvest::html_nodes(".trigger-download-dialog")  %>%
-                                        rvest::html_attr("data-item-id"))
+                                        html_nodes(".trigger-download-dialog")  %>%
+                                        html_attr("data-item-id"))
     layers <- unlist(layers)
     lay.nums <- sapply(sapply(layers, strsplit, "layer."), function(x) x[2])
     res <- data.frame(Data = titles,"Layer number" = lay.nums)
@@ -37,7 +40,9 @@ mfe_data <- function() {
 #' or as the MfE layer id (e.g., "layer-53523")
 #' @param key optional, manually set API key for \url{https://data.mfe.govt.nz/}
 #' @param sf logical, return data as \code{sf}. FALSE by default
-#' @param plot logical if TRUE thn object is plotted
+#' @param plot logical, if TRUE then object is plotted
+#' @param print logical, if TRUE (default) then abstract of layer is plotted
+#' otherwise url is opened
 #' @return a \code{Spatial} or \code{sf} object of the requested data layer
 #' @examples \dontrun{
 #' get_mfe_data(id = "layer-53523")
@@ -49,7 +54,7 @@ mfe_data <- function() {
 #' @importFrom httr GET write_disk
 #' @importFrom rgdal ogrListLayers readOGR
 #' @importFrom sf st_read
-get_mfe_data <- function(id, key = NULL, sf = FALSE, plot = FALSE) {
+get_mfe_data <- function(id, key = NULL, sf = FALSE, plot = FALSE, print = TRUE) {
     if(is.na(charmatch("layer-",id))) id <- paste("layer-",id,sep = "")
     if(length(id) > 1) {
         print("id should be of length 1, using first element only")
@@ -61,6 +66,12 @@ get_mfe_data <- function(id, key = NULL, sf = FALSE, plot = FALSE) {
         key <- eeda_keys()$MfE_KEY
     }
     if(!is.null(key)) print("MfE_KEY found")
+    abs_url <- paste("https://data.mfe.govt.nz/layer/",id, sep = "")
+    if(print){
+        cat((read_html(abs_url) %>% html_nodes("div.fullSpan p") %>% html_text())[1])
+    }else{
+        browseURL(abs_url)
+    }
     base_url <- "https://data.mfe.govt.nz"
     endpoint <- paste("/services;key=",key, "/wfs",sep = "")
     q <- list(request = "GetFeature", service = "WFS", typeNames = id,outputFormat = "KML")
